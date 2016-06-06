@@ -16,7 +16,7 @@ module SlowServer
     end
 
     def chunks
-      config.response.scan(/.{1,#{config.chunk_size}}/m)
+      config.response.scan(/.{1,#{chunk_size}}/m)
     end
 
     def start
@@ -35,7 +35,7 @@ module SlowServer
                        "Connection: close\r\n\r\n"
 
           chunks.each do |chunk|
-            STDERR.puts "Sending #{config.chunk_size} bytes"
+            STDERR.puts "Sending #{chunk_size} bytes"
             socket.print chunk
             STDERR.puts "Waiting for #{config.chunk_delay} seconds"
             sleep config.chunk_delay
