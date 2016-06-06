@@ -13,10 +13,6 @@ module SlowServer
       self.chunk_delay = 0
     end
 
-    def chunk_size
-      self.response.size / self.chunks
-    end
-
     def opts
       @opts ||= OptionParser.new do |opt|
         opt.banner = "Usage: #{File.basename($PROGRAM_NAME)} [OPTIONS] [RESPONSE]"

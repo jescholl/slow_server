@@ -11,8 +11,11 @@ module SlowServer
       @server ||= TCPServer.open('0.0.0.0', config.port)
     end
 
+    def chunk_size
+      config.response.size / config.chunks
+    end
+
     def chunks
-      #config.response.unpack("a#{config.chunks}"*(config.response.size/config.chunks))
       config.response.scan(/.{1,#{config.chunk_size}}/m)
     end
 

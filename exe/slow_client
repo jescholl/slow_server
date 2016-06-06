@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+require 'slow_server'
+
+catch :exit do
+  SlowServer.config.parse_opts
+  SlowServer::Client.new().start
+end

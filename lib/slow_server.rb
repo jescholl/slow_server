@@ -1,5 +1,6 @@
 require "slow_server/version"
 require "slow_server/server"
+require "slow_server/client"
 require "slow_server/config"
 
 module SlowServer
