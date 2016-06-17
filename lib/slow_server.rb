@@ -6,17 +6,12 @@ require "slow_server/config"
 module SlowServer
   class << self
 
-    def config
-      @config ||= Config.new
+    def server_config
+      @server_config ||= ServerConfig.new
     end
 
-    def configure
-      yield config
-    end
-
-    def configure!
-      @config = Config.new
-      yield config
+    def client_config
+      @client_config ||= ClientConfig.new
     end
 
   end

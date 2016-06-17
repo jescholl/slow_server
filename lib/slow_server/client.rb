@@ -1,10 +1,11 @@
 require 'socket'
+require 'uri'
 
 module SlowServer
   class Client
 
     def config
-      SlowServer.config
+      SlowServer.client_config
     end
 
     def chunk_size
