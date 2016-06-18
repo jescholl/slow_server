@@ -5,7 +5,7 @@ module SlowServer
   class Client
 
     def config
-      SlowServer.client_config
+      @config ||= ClientConfig.new
     end
 
     def chunk_size
@@ -17,11 +17,11 @@ module SlowServer
     end
 
     def request
-      "GET /"
+      [config.request_method, config.request_path].join(" ")
     end
 
     def start
-      TCPSocket.open("127.0.0.1", 4000) do |socket|
+      TCPSocket.open(config.host, config.port) do |socket|
         STDERR.puts "Waiting for #{config.response_delay} seconds"
         sleep config.response_delay
 

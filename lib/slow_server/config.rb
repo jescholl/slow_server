@@ -1,4 +1,5 @@
 require 'optparse'
+require 'uri'
 
 module SlowServer
   class ServerConfig
@@ -31,34 +32,29 @@ module SlowServer
   end
 
   class ClientConfig < ServerConfig
-    attr_accessor :request_method, :host
+    attr_accessor :request_method, :host, :request_path, :request_headers
 
     def initialize
       super
       self.request_method = 'GET'
       self.host = 'localhost'
+      self.request_path = "/"
     end
 
     def opts
       opts = super
       opts.on("-X", "--method METHOD",          String,  "Request Method                      (default: #{self.request_method})") { |v| self.request_method = v }
+      opts.on("-p", "--port NUMBER",            Integer, "Transmit Port                       (default: #{self.port}")            { |v| @port_override = v }
     end
 
     def parse_opts
-      uri = opts.parse![0]
-      self.host, port = uri.split(':')
-      self.port = port.to_i unless port.nil?
-
-      #begin
-      #  uri = URI::Generic.build(nil, nil, unparsed_opts[0].split(':'))
-      #rescue URI::InvalidURIError
-      #  throw :exit
-      #end
-      #if uri.instance_of?(URI::Generic)
-      #  uri = URI::HTTP.build(:host => uri.to_s)
-      #end
-      #self.host = uri.host
-      #self.port = uri.port unless uri.port.nil?
+      uri = URI.parse(opts.parse![0])
+      if uri.is_a?(URI::Generic) && uri !~ %r{^\w+:\/\/}
+        uri = URI.parse("http://#{uri}")
+      end
+      self.host = uri.host
+      self.port = @port_override || uri.port
+      self.request_path = uri.path if uri.path
     end
 
   end

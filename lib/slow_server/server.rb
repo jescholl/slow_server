@@ -4,7 +4,7 @@ module SlowServer
   class Server
 
     def config
-      SlowServer.server_config
+      @config ||= ServerConfig.new
     end
 
     def server
