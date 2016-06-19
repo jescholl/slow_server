@@ -15,25 +15,25 @@ describe SlowServer::ServerConfig do
 
   describe '#parse_opts' do
     it 'should parse -p' do
-      port = Random.rand(1000)
+      port = Random.rand(1..1000)
       stub_const('ARGV', %W{ -p #{port} })
       expect{config.parse_opts}.to change{config.port}.from(default.port).to(port)
     end
 
     it 'should parse -c' do
-      chunks = Random.rand(1000)
+      chunks = Random.rand(2..1000)
       stub_const('ARGV', %W{ -c #{chunks} })
       expect{config.parse_opts}.to change{config.chunks}.from(default.chunks).to(chunks)
     end
 
     it 'should parse -d' do
-      response_delay = Random.rand(1000)
+      response_delay = Random.rand(1..1000)
       stub_const('ARGV', %W{ -d #{response_delay} })
       expect{config.parse_opts}.to change{config.response_delay}.from(default.response_delay).to(response_delay)
     end
 
     it 'should parse -k' do
-      chunk_delay = Random.rand(1000)
+      chunk_delay = Random.rand(1..1000)
       stub_const('ARGV', %W{ -k #{chunk_delay} })
       expect{config.parse_opts}.to change{config.chunk_delay}.from(default.chunk_delay).to(chunk_delay)
     end

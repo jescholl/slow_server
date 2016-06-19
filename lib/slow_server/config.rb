@@ -39,6 +39,7 @@ module SlowServer
       self.request_method = 'GET'
       self.host = 'localhost'
       self.request_path = "/"
+      self.request_headers = []
     end
 
     def opts
