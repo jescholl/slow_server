@@ -13,29 +13,29 @@ describe SlowServer::ServerConfig do
     end
   end
 
-  describe '#parse_opts' do
+  describe '#parse' do
     it 'should parse -p' do
-      port = Random.rand(1..1000)
+      port = ([*1..1000] - [default.port]).sample
       stub_const('ARGV', %W{ -p #{port} })
-      expect{config.parse_opts}.to change{config.port}.from(default.port).to(port)
+      expect{config.parse}.to change{config.port}.from(default.port).to(port)
     end
 
     it 'should parse -c' do
-      chunks = Random.rand(2..1000)
+      chunks = ([*1..1000] - [default.chunks]).sample
       stub_const('ARGV', %W{ -c #{chunks} })
-      expect{config.parse_opts}.to change{config.chunks}.from(default.chunks).to(chunks)
+      expect{config.parse}.to change{config.chunks}.from(default.chunks).to(chunks)
     end
 
     it 'should parse -d' do
-      response_delay = Random.rand(1..1000)
+      response_delay = ([*1..1000] - [default.response_delay]).sample
       stub_const('ARGV', %W{ -d #{response_delay} })
-      expect{config.parse_opts}.to change{config.response_delay}.from(default.response_delay).to(response_delay)
+      expect{config.parse}.to change{config.response_delay}.from(default.response_delay).to(response_delay)
     end
 
     it 'should parse -k' do
-      chunk_delay = Random.rand(1..1000)
+      chunk_delay = ([*1..1000] - [default.chunk_delay]).sample
       stub_const('ARGV', %W{ -k #{chunk_delay} })
-      expect{config.parse_opts}.to change{config.chunk_delay}.from(default.chunk_delay).to(chunk_delay)
+      expect{config.parse}.to change{config.chunk_delay}.from(default.chunk_delay).to(chunk_delay)
     end
 
   end
@@ -55,41 +55,41 @@ describe SlowServer::ClientConfig do
     end
   end
 
-  describe '#parse_opts' do
+  describe '#parse' do
     it 'should parse -p' do
-      port = Random.rand(1000)
+      port = ([*1..1000] - [default.port]).sample
       stub_const('ARGV', %W{ -p #{port} example.com })
-      expect{config.parse_opts}.to change{config.port}.from(default.port).to(port)
+      expect{config.parse}.to change{config.port}.from(default.port).to(port)
     end
 
     it 'should parse -c' do
-      chunks = Random.rand(1000)
+      chunks = ([*1..1000] - [default.chunks]).sample
       stub_const('ARGV', %W{ -c #{chunks} example.com })
-      expect{config.parse_opts}.to change{config.chunks}.from(default.chunks).to(chunks)
+      expect{config.parse}.to change{config.chunks}.from(default.chunks).to(chunks)
     end
 
     it 'should parse -d' do
-      response_delay = Random.rand(1000)
+      response_delay = ([*1..1000] - [default.response_delay]).sample
       stub_const('ARGV', %W{ -d #{response_delay} example.com })
-      expect{config.parse_opts}.to change{config.response_delay}.from(default.response_delay).to(response_delay)
+      expect{config.parse}.to change{config.response_delay}.from(default.response_delay).to(response_delay)
     end
 
     it 'should parse -k' do
-      chunk_delay = Random.rand(1000)
+      chunk_delay = ([*1..1000] - [default.chunk_delay]).sample
       stub_const('ARGV', %W{ -k #{chunk_delay} example.com })
-      expect{config.parse_opts}.to change{config.chunk_delay}.from(default.chunk_delay).to(chunk_delay)
+      expect{config.parse}.to change{config.chunk_delay}.from(default.chunk_delay).to(chunk_delay)
     end
 
     it 'should accept host from the URI' do
       host = "example.com"
       stub_const('ARGV', %W{ #{host} })
-      expect{config.parse_opts}.to change{config.host}.from(default.host).to(host)
+      expect{config.parse}.to change{config.host}.from(default.host).to(host)
     end
 
     it 'should accept port from the URI' do
-      port = Random.rand(1000)
+      port = ([*1..1000] - [default.port]).sample
       stub_const('ARGV', %W{ example.com:#{port} })
-      expect{config.parse_opts}.to change{config.port}.from(default.port).to(port)
+      expect{config.parse}.to change{config.port}.from(default.port).to(port)
     end
 
   end

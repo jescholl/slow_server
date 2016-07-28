@@ -18,7 +18,7 @@ module SlowServer
 
     def request_body
       [].tap do |req|
-        req << [config.request_method, config.request_path].join(" ")
+        req << [config.request_method, config.request_uri].join(" ")
         req += config.request_headers
       end.join("\n")
     end

@@ -2,6 +2,6 @@
 require 'slow_server'
 
 catch :exit do
-  SlowServer.client_config.parse_opts
-  SlowServer::Client.new().start
+  SlowServer.client.config.parse
+  SlowServer.client.start
 end
