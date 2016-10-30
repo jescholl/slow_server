@@ -1,28 +1,53 @@
 # SlowServer
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/slow_server`. To experiment with that code, run `bin/console` for an interactive prompt.
+This Gem has two parts, slow_server and slow_client, together they can be used to
+test timeouts in various stages of connections.
 
-TODO: Delete this and the text above, and describe your gem
+Currently there are two types of delays supported by both client and server,
+initial delay and chunk delay.
+
+Initial delay (--delay) causes both client and server to wait some amount of
+seconds after the connection is opened before sending anything.
+
+Chunk delay (--chunk-delay) works together with chunk count (--chunks) to split the
+message into chunks and send them one chunk at a time with some delay between.  You
+can think of this similar to Chunked Encoding for HTTP, but it's not actually using
+Chunked Encoding
 
 ## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'slow_server'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
 
     $ gem install slow_server
 
 ## Usage
 
-TODO: Write usage instructions here
+###slow_client
+
+slow_client is somewhat similar to slowloris, it has tunable delays for various different phases of connection.
+
+```
+$ slow_client --help
+Usage: slow_client [OPTIONS] [URI]
+    -X, --method METHOD              Request Method                      (default: GET)
+    -p, --port NUMBER                Listen Port                         (default: 4000)
+    -c, --chunks BYTES               Chunks                              (default: 1)
+    -d, --delay SECONDS              Transmission delay after connecting (default: 0)
+    -k, --chunk-delay SECONDS        Delay between chunks                (default: 0)
+    -v, --version                    Show Version
+```
+
+###slow_server
+
+slow_server is the counterpart to slow_client, by default it will respond with the story of The Tortoise and The Hare, but it too has tunable delays.
+
+```
+$ slow_server --help
+Usage: slow_server [OPTIONS] [RESPONSE]
+    -p, --port NUMBER                Listen Port                         (default: 4000)
+    -c, --chunks BYTES               Chunks                              (default: 1)
+    -d, --delay SECONDS              Transmission delay after connecting (default: 0)
+    -k, --chunk-delay SECONDS        Delay between chunks                (default: 0)
+    -v, --version                    Show Version
+```
 
 ## Development
 
@@ -32,7 +57,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/slow_server.
+Bug reports and pull requests are welcome on GitHub at https://github.com/jscholl/slow_server.
 
 
 ## License
