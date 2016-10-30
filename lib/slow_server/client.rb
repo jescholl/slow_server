@@ -19,7 +19,7 @@ module SlowServer
     def request_body
       [].tap do |req|
         req << [config.request_method, config.request_uri].join(" ")
-        req += config.request_headers
+        req << config.request_headers
       end.join("\n")
     end
 
@@ -35,7 +35,7 @@ module SlowServer
 
     def get_response(socket)
       response = socket.read
-      headers,body = response.split("\r\n\r\n", 2)
+      _headers,body = response.split("\r\n\r\n", 2)
       STDERR.puts "\n"
       print body
     end

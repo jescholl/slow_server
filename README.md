@@ -1,5 +1,9 @@
 # SlowServer
 
+[![CircleCI](https://circleci.com/gh/jescholl/slow_server.svg?style=svg)](https://circleci.com/gh/jescholl/slow_server)
+[![Code Climate](https://codeclimate.com/github/jescholl/slow_server/badges/gpa.svg)](https://codeclimate.com/github/jescholl/slow_server)
+[![Test Coverage](https://codeclimate.com/github/jescholl/slow_server/badges/coverage.svg)](https://codeclimate.com/github/jescholl/slow_server/coverage)
+
 This Gem has two parts, slow_server and slow_client, together they can be used to
 test timeouts in various stages of connections.
 
